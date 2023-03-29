@@ -37,7 +37,7 @@ class Mention {
         insertItem(item);
       },
       onOptionHoverSelect(id) {
-        return id
+        return id;
       },
       mentionDenotationChars: ["@"],
       showDenotationChar: true,
@@ -210,7 +210,7 @@ class Mention {
   }
 
   highlightItem(scrollItemInView = true) {
-    this.options.onOptionHoverSelect(this.mentionList.childNodes[this.itemIndex].id)
+    this.options.onOptionHoverSelect(this.mentionList.childNodes[this.itemIndex].dataset.id || "")
 
     for (let i = 0; i < this.mentionList.childNodes.length; i += 1) {
       this.mentionList.childNodes[i].classList.remove("selected");

@@ -621,7 +621,7 @@ var Mention = /*#__PURE__*/function () {
     key: "highlightItem",
     value: function highlightItem() {
       var scrollItemInView = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      this.options.onOptionHoverSelect(this.mentionList.childNodes[this.itemIndex].id);
+      this.options.onOptionHoverSelect(this.mentionList.childNodes[this.itemIndex].dataset.id || "");
 
       for (var i = 0; i < this.mentionList.childNodes.length; i += 1) {
         this.mentionList.childNodes[i].classList.remove("selected");
