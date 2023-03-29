@@ -36,6 +36,9 @@ class Mention {
       onSelect(item, insertItem) {
         insertItem(item);
       },
+      onOptionHoverSelect(id) {
+        return id
+      },
       mentionDenotationChars: ["@"],
       showDenotationChar: true,
       allowedChars: /^[a-zA-Z0-9_]*$/,
@@ -207,6 +210,8 @@ class Mention {
   }
 
   highlightItem(scrollItemInView = true) {
+    this.options.onOptionHoverSelect(this.mentionList.childNodes[this.itemIndex].id)
+
     for (let i = 0; i < this.mentionList.childNodes.length; i += 1) {
       this.mentionList.childNodes[i].classList.remove("selected");
     }
@@ -245,9 +250,8 @@ class Mention {
       this.mentionList.childNodes[
         this.itemIndex
       ].dataset.value = `<a href="${link}" target=${itemTarget ||
-        this.options.linkTarget}>${
-        this.mentionList.childNodes[this.itemIndex].dataset.value
-      }`;
+      this.options.linkTarget}>${this.mentionList.childNodes[this.itemIndex].dataset.value
+        }`;
     }
     return this.mentionList.childNodes[this.itemIndex].dataset;
   }
@@ -383,7 +387,7 @@ class Mention {
           : "";
         if (data[i].disabled) {
           li.className += " disabled";
-          li.setAttribute('aria-hidden','true');
+          li.setAttribute('aria-hidden', 'true');
         } else if (initialSelection === -1) {
           initialSelection = i;
         }
@@ -670,12 +674,12 @@ class Mention {
     );
 
     if (
-        hasValidMentionCharIndex(
-          mentionCharIndex,
-          textBeforeCursor,
-          this.options.isolateCharacter
-        )
-      ) {
+      hasValidMentionCharIndex(
+        mentionCharIndex,
+        textBeforeCursor,
+        this.options.isolateCharacter
+      )
+    ) {
       const mentionCharPos = this.cursorPos - (textBeforeCursor.length - mentionCharIndex);
       this.mentionCharPos = mentionCharPos;
       const textAfter = textBeforeCursor.substring(
